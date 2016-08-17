@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>MobileSoftwareStore</name>
+    <name>MobileSoftwareStoreSpringBoot</name>
     <url>http://www.dataart.com</url>
 
     <properties>
@@ -30,7 +30,6 @@
         <commons-net-version>3.5</commons-net-version>
         <maven-compiler-plugin-version>3.5.1</maven-compiler-plugin-version>
         <maven-war-plugin-version>2.6</maven-war-plugin-version>
-        <maven-pmd-plugin-version>3.6</maven-pmd-plugin-version>
     </properties>
 
     <dependencies>
