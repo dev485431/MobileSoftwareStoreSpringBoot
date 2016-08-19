@@ -3,7 +3,8 @@ package com.dataart.softwarestore.utils;
 import com.dataart.softwarestore.exceptions.ProgramFileProcessingException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -17,7 +18,7 @@ import java.util.zip.ZipFile;
 @Component
 public class ProgramZipFileHandler {
 
-    private static final Logger LOG = Logger.getLogger(ProgramZipFileHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProgramZipFileHandler.class);
 
     public File transferFileToDir(CommonsMultipartFile sourceFile, File targetDir) throws IOException,
             ProgramFileProcessingException {

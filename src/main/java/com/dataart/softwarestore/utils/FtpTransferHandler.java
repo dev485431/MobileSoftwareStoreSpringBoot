@@ -2,7 +2,8 @@ package com.dataart.softwarestore.utils;
 
 import com.dataart.softwarestore.exceptions.FtpException;
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 @Component
 public class FtpTransferHandler {
 
-    private static final Logger LOG = Logger.getLogger(FtpTransferHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FtpTransferHandler.class);
     private static final int FTP_CODE_FILE_UNAVAILABLE = 550;
     private static final String BACKSLASH = "/";
     @Value("${ftp.host}")

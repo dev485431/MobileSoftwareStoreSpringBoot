@@ -1,7 +1,8 @@
 package com.dataart.softwarestore.utils;
 
 import com.dataart.softwarestore.model.domain.Program;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import java.net.URL;
 @Component
 public class UrlsHandler {
 
-    private static final Logger LOG = Logger.getLogger(UrlsHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UrlsHandler.class);
     private static final String PROTOCOL = "http";
     private static final String BACKSLASH = "/";
     @Value("${programs.main.url.domain}")

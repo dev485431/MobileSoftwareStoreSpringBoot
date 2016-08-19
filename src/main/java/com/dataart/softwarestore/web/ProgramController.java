@@ -18,7 +18,8 @@ import com.dataart.softwarestore.validation.ProgramFormValidator;
 import com.dataart.softwarestore.validation.ProgramTextDetailsValidator;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -42,7 +43,7 @@ import java.util.Map;
 @Controller
 public class ProgramController {
 
-    private static final Logger LOG = Logger.getLogger(ProgramController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProgramController.class);
     private static final String PROGRAM_SUBMIT_PAGE = "submit";
     private static final String PROGRAM_DETAILS_PAGE = "details";
     private static final String REDIRECT_TO_SUBMIT_PAGE = "redirect:/submit";

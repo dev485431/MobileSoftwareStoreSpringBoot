@@ -2,7 +2,8 @@ package com.dataart.softwarestore.web;
 
 import com.dataart.softwarestore.model.domain.Rating;
 import com.dataart.softwarestore.service.RatingManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class RatingController {
 
-    private static final Logger LOG = Logger.getLogger(RatingController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RatingController.class);
     @Autowired
     private RatingManager ratingManager;
 

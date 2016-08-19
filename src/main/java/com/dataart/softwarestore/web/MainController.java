@@ -2,7 +2,8 @@ package com.dataart.softwarestore.web;
 
 import com.dataart.softwarestore.service.CategoryManager;
 import com.dataart.softwarestore.service.PaginationManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class MainController {
 
-    private static final Logger LOG = Logger.getLogger(MainController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
     private static final String MAIN_PAGE = "index";
     @Value("${pagination.default.page.number}")
     Integer defaultPageNumber;

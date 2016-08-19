@@ -1,11 +1,12 @@
 package com.dataart.softwarestore.validation;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -14,7 +15,7 @@ import java.util.zip.ZipInputStream;
 @Component
 public class BeforeUploadFileValidator {
 
-    private static final Logger LOG = Logger.getLogger(AfterUploadFilesValidator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AfterUploadFilesValidator.class);
 
     @Value("#{'${program.zip.required.inner.files}'.split(',')}")
     private List<String> zipRequiredInnerFiles;

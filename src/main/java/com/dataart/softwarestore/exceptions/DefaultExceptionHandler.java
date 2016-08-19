@@ -1,7 +1,8 @@
 package com.dataart.softwarestore.exceptions;
 
 import org.apache.commons.fileupload.FileUploadBase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ import java.io.IOException;
 @ControllerAdvice
 public class DefaultExceptionHandler {
 
-    private static final Logger LOG = Logger.getLogger(DefaultExceptionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultExceptionHandler.class);
     private static final int SIZE_DIVIDER = 1024;
     private static final String DEFAULT_ERROR_VIEW = "error";
     private static final String VIEW_404 = "error404";

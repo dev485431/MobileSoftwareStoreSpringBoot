@@ -2,7 +2,8 @@ package com.dataart.softwarestore.validation;
 
 import com.dataart.softwarestore.model.dto.ProgramForm;
 import com.dataart.softwarestore.service.ProgramManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ import static com.dataart.softwarestore.validation.ValidationConfig.ZERO;
 @Component
 public class ProgramFormValidator implements Validator {
 
-    private static final Logger LOG = Logger.getLogger(ProgramFormValidator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProgramFormValidator.class);
     @Autowired
     private ProgramManager programManager;
     @Autowired
