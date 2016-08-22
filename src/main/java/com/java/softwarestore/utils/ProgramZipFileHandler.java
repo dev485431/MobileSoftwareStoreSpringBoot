@@ -6,7 +6,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.Enumeration;
@@ -20,7 +20,7 @@ public class ProgramZipFileHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProgramZipFileHandler.class);
 
-    public File transferFileToDir(CommonsMultipartFile sourceFile, File targetDir) throws IOException,
+    public File transferFileToDir(MultipartFile sourceFile, File targetDir) throws IOException,
             ProgramFileProcessingException {
         if (!targetDir.exists()) {
             if (!targetDir.mkdir()) {

@@ -2,7 +2,7 @@ package com.java.softwarestore.model.dto;
 
 import com.java.softwarestore.validation.ValidationConfig;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -20,7 +20,7 @@ public class ProgramForm {
     @Digits(integer = ValidationConfig.LENGTH_CATEGORY_ID_MAX, fraction = ValidationConfig.ZERO)
     private Integer categoryId;
 
-    private CommonsMultipartFile file;
+    private MultipartFile file;
 
     @NotBlank(message = "{msg.empty}")
     @Size(min = ValidationConfig.LENGTH_DESCRIPTION_MIN, max = ValidationConfig.LENGTH_DESCRIPTION_MAX, message = "{msg.invalid.length}")
@@ -43,11 +43,11 @@ public class ProgramForm {
         this.categoryId = categoryId;
     }
 
-    public CommonsMultipartFile getFile() {
+    public MultipartFile getFile() {
         return file;
     }
 
-    public void setFile(CommonsMultipartFile file) {
+    public void setFile(MultipartFile file) {
         this.file = file;
     }
 
