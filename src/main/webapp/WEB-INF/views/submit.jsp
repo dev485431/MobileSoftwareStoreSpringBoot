@@ -88,7 +88,7 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form:form>
-            <small class="text-muted">* Maximum program file size is <strong>${maxFileSizeKb} Kb</strong></small>
+            <small class="text-muted">* Maximum program file size is <strong>${maxFileSize}</strong></small>
             </br>
             <small class="text-muted">** The program file must be a <strong>${uploadedFileExtension}</strong> file.It
                 cannot be <strong>empty</strong>.</br>

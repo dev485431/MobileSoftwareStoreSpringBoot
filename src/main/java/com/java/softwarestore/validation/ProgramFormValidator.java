@@ -19,8 +19,6 @@ public class ProgramFormValidator implements Validator {
     private ProgramManager programManager;
     @Autowired
     private BeforeUploadFileValidator beforeUploadFileValidator;
-    @Value("${uploaded.file.max.size.bytes}")
-    private Long uploadedFileMaxSizeBytes;
     @Value("${uploaded.file.extension}")
     private String uploadedFileExtension;
     @Value("${program.name.restricted.names}")

@@ -48,7 +48,6 @@ public class ProgramController {
     private static final String PROGRAM_DETAILS_PAGE = "details";
     private static final String REDIRECT_TO_SUBMIT_PAGE = "redirect:/submit";
     private static final Long INITIAL_DOWNLOADS = 0L;
-    private static final int FILE_SIZE_DIVIDER = 1024;
 
     private HttpServletRequest servletRequest;
     private MessageSourceAccessor websiteMessages;
@@ -62,8 +61,8 @@ public class ProgramController {
     private FtpTransferHandler ftpTransferHandler;
     private UrlsHandler urlsHandler;
 
-    @Value("${uploaded.file.max.size.bytes}")
-    private Long uploadedFileMaxSizeBytes;
+    @Value("${spring.http.multipart.max-file-size}")
+    private String uploadedFileMaxSize;
     @Value("${program.zip.required.inner.files}")
     private String[] zipFileRequiredInnerFiles;
     @Value("${uploaded.file.extension}")
@@ -116,7 +115,7 @@ public class ProgramController {
         LOG.debug("Getting program submit form");
         model.addAttribute("programForm", new ProgramForm());
         model.addAttribute("allCategories", categoryManager.getAllCategories());
-        model.addAttribute("maxFileSizeKb", uploadedFileMaxSizeBytes / FILE_SIZE_DIVIDER);
+        model.addAttribute("maxFileSize", uploadedFileMaxSize);
         model.addAttribute("requiredInnerFiles", zipFileRequiredInnerFiles);
         model.addAttribute("uploadedFileExtension", uploadedFileExtension);
         return PROGRAM_SUBMIT_PAGE;
@@ -127,7 +126,7 @@ public class ProgramController {
                                        BindingResult result, RedirectAttributes redirect) throws
             ProgramFileProcessingException, FtpException {
         model.addAttribute("allCategories", categoryManager.getAllCategories());
-        model.addAttribute("maxFileSizeKb", uploadedFileMaxSizeBytes / FILE_SIZE_DIVIDER);
+        model.addAttribute("maxFileSize", uploadedFileMaxSize);
         model.addAttribute("requiredInnerFiles", zipFileRequiredInnerFiles);
         model.addAttribute("uploadedFileExtension", uploadedFileExtension);
         if (result.hasErrors()) return PROGRAM_SUBMIT_PAGE;
