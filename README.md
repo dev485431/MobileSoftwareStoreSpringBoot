@@ -11,6 +11,8 @@ user: user / user
 
 1. build: mvn clean install
 
+2. run options:
+
 2a. run embedded container / embedded db profile:
 
 * java -jar MobileSoftwareStoreSpringBoot-1.0-SNAPSHOT.war,
@@ -25,3 +27,7 @@ user: user / user
 2c. run external container / external mysql db profile with JNDI support:
 * deploy to external container
 * add argument into VM options: -Dspring.profiles.active=prod-jndi
+
+
+*** Note: this application can be also deployed to external container
+with embedded db main profile or external jdbc mysql profile ('prod')
