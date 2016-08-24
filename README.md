@@ -27,6 +27,7 @@ user: user / user
 2c. run external container / external mysql db profile with JNDI support:
 * deploy to external container
 * add argument into VM options: -Dspring.profiles.active=prod-jndi
+** JNDI configuration is stored in: META-INF/context.xml
 
 
 *** Note: this application can be also deployed to external container
