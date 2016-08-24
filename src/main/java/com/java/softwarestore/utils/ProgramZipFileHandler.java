@@ -69,14 +69,9 @@ public class ProgramZipFileHandler {
 
     public void batchRemoveFiles(File... files) {
         for (File file : files) {
-            if (file.exists()) {
-                LOG.debug("Removing file or dir: " + file.getAbsolutePath());
-                try {
-                    FileUtils.forceDelete(file);
-                } catch (IOException e) {
-                    LOG.error("Unable to remove file or dir: " + file.getAbsolutePath() + ", Error msg: " + e
-                            .getMessage());
-                }
+            LOG.debug("Removing file or dir: " + file.getAbsolutePath());
+            if (FileUtils.deleteQuietly(file)) {
+                LOG.debug("Failed to remove file or dir: " + file);
             }
         }
     }

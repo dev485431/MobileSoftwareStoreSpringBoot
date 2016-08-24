@@ -30,7 +30,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.File;
@@ -49,7 +48,6 @@ public class ProgramController {
     private static final String REDIRECT_TO_SUBMIT_PAGE = "redirect:/submit";
     private static final Long INITIAL_DOWNLOADS = 0L;
 
-    private HttpServletRequest servletRequest;
     private MessageSourceAccessor websiteMessages;
     private ProgramManager programManager;
     private CategoryManager categoryManager;
@@ -67,7 +65,7 @@ public class ProgramController {
     private String[] zipFileRequiredInnerFiles;
     @Value("${uploaded.file.extension}")
     private String uploadedFileExtension;
-    @Value("${temp.upload.dir}")
+    @Value("${spring.http.multipart.location}")
     private String tempUploadDir;
     @Value("${program.zip.inner.app.filename}")
     private String zipInnerAppFile;
@@ -86,13 +84,12 @@ public class ProgramController {
 
 
     @Autowired
-    public ProgramController(HttpServletRequest servletRequest, MessageSourceAccessor websiteMessages, ProgramManager
+    public ProgramController(MessageSourceAccessor websiteMessages, ProgramManager
             programManager, CategoryManager categoryManager, ProgramFormValidator programFormValidator,
                              AfterUploadFilesValidator afterUploadFilesValidator,
                              ProgramZipFileHandler programZipFileHandler, ProgramInfoHandler programInfoHandler,
                              ProgramTextDetailsValidator programTextDetailsValidator,
                              FtpTransferHandler ftpTransferHandler, UrlsHandler urlsHandler) {
-        this.servletRequest = servletRequest;
         this.websiteMessages = websiteMessages;
         this.programManager = programManager;
         this.categoryManager = categoryManager;
@@ -135,8 +132,8 @@ public class ProgramController {
         File extractPath = null;
         ProgramTextDetails programTextDetails = null;
         try {
-            File mainUploadDir = new File(servletRequest.getSession().getServletContext().getRealPath(tempUploadDir));
-            uploadedZipFile = programZipFileHandler.transferFileToDir(programForm.getFile(), mainUploadDir);
+            LOG.debug("Current temp upload dir: " + tempUploadDir);
+            uploadedZipFile = programZipFileHandler.transferFileToDir(programForm.getFile(), new File(tempUploadDir));
             extractPath = new File(FilenameUtils.removeExtension(uploadedZipFile.getAbsolutePath()));
             Map<String, File> extractedFiles = programZipFileHandler.extractZipFile(uploadedZipFile, extractPath);
             if (afterUploadFilesValidator.areThereEmptyFiles(extractedFiles)) {

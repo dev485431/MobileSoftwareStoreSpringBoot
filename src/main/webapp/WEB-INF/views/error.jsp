@@ -11,7 +11,8 @@
 <!--
 Information for technical support:
 Failed URL: ${url}
-Exception: ${exception.message}
+Exception: ${exception}
+Exception message: ${exception.message}
 Cause: ${exception.cause}
 
 Stack trace:
