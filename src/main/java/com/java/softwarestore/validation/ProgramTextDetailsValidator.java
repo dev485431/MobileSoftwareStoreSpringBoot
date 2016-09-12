@@ -1,10 +1,8 @@
 package com.java.softwarestore.validation;
 
-import com.java.softwarestore.model.dto.ProgramTextDetails;
+import com.java.softwarestore.model.dto.ProgramTextFileDetails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 @Component
 public class ProgramTextDetailsValidator {
@@ -12,33 +10,27 @@ public class ProgramTextDetailsValidator {
     @Value("${program.zip.txt.images.extension}")
     private String imagesNamesExpectedExtension;
 
-    public boolean isValid(ProgramTextDetails programTextDetails) throws IOException {
-        return (hasRequiredNonEmptyFields(programTextDetails) && hasExpectedImagesExtensions(programTextDetails) &&
-                hasUniqueImagesNames(programTextDetails)) ? true : false;
+    public boolean isValid(ProgramTextFileDetails programTextFileDetails) {
+        return hasRequiredNonEmptyFields(programTextFileDetails) && hasExpectedImagesExtensions
+                (programTextFileDetails) && hasUniqueImagesNames(programTextFileDetails);
     }
 
-    private boolean hasRequiredNonEmptyFields(ProgramTextDetails programTextDetails) {
-        return programTextDetails.getProgramName().isPresent() && !programTextDetails.getProgramName().get().isEmpty()
-                && programTextDetails.getPackageName().isPresent() && !programTextDetails.getPackageName().get()
-                .isEmpty();
+    private boolean hasRequiredNonEmptyFields(ProgramTextFileDetails programTextFileDetails) {
+        return programTextFileDetails.getProgramName().isPresent() && !programTextFileDetails.getProgramName().get()
+                .isEmpty() && programTextFileDetails.getPackageName().isPresent() && !programTextFileDetails
+                .getPackageName().get().isEmpty();
     }
 
-    private boolean hasExpectedImagesExtensions(ProgramTextDetails programTextDetails) {
-        if (programTextDetails.getPicName128().isPresent()) {
-            if (!programTextDetails.getPicName128().get().endsWith(imagesNamesExpectedExtension)) return false;
-        }
-        if (programTextDetails.getPicName512().isPresent()) {
-            if (!programTextDetails.getPicName512().get().endsWith(imagesNamesExpectedExtension)) return false;
-        }
-        return true;
+    private boolean hasExpectedImagesExtensions(ProgramTextFileDetails programTextFileDetails) {
+        return !(programTextFileDetails.getPicName128().isPresent() && !programTextFileDetails.getPicName128().get()
+                .endsWith(imagesNamesExpectedExtension) || programTextFileDetails.getPicName512().isPresent() &&
+                !programTextFileDetails.getPicName512().get().endsWith(imagesNamesExpectedExtension));
     }
 
-    private boolean hasUniqueImagesNames(ProgramTextDetails programTextDetails) {
-        if (programTextDetails.getPicName128().isPresent() && programTextDetails.getPicName512().isPresent()) {
-            if (programTextDetails.getPicName128().get().equals(programTextDetails.getPicName512().get())) return false;
-        }
-        return true;
+    private boolean hasUniqueImagesNames(ProgramTextFileDetails programTextFileDetails) {
+        return !(programTextFileDetails.getPicName128().isPresent() && programTextFileDetails.getPicName512().isPresent
+                () && programTextFileDetails.getPicName128().get().equals(programTextFileDetails.getPicName512().get
+                ()));
     }
-
 
 }

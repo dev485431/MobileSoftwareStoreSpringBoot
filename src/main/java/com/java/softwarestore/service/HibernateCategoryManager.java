@@ -1,7 +1,6 @@
-package com.java.softwarestore.service.hibernate;
+package com.java.softwarestore.service;
 
 import com.java.softwarestore.model.domain.Category;
-import com.java.softwarestore.service.CategoryManager;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class HibernateCategoryManager implements CategoryManager {
-
+public class HibernateCategoryManager {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -21,27 +19,25 @@ public class HibernateCategoryManager implements CategoryManager {
         return sessionFactory.getCurrentSession();
     }
 
-    @Override
     @Transactional(readOnly = true)
     @SuppressWarnings("unchecked")
     public List<Category> getAllCategories() {
         return session().createQuery("from Category").setCacheable(true).list();
     }
 
-    @Override
     @Transactional(readOnly = true)
     public boolean categoryExists(String categoryName) {
         return getCategoryByName(categoryName) != null;
     }
 
-    @Override
     @Transactional(readOnly = true)
     public Category getCategoryById(Integer id) {
         return (Category) session().createQuery("from Category where id=:id").setParameter("id", id).uniqueResult();
     }
 
     private Category getCategoryByName(String categoryName) {
-        return (Category) session().createQuery("from Category where name=:categoryName").setParameter("categoryName", categoryName).uniqueResult();
+        return (Category) session().createQuery("from Category where name=:categoryName").setParameter
+                ("categoryName", categoryName).uniqueResult();
     }
 
 }

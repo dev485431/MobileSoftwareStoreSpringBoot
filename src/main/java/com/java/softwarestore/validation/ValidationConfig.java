@@ -1,6 +1,6 @@
 package com.java.softwarestore.validation;
 
-public class ValidationConfig {
+public final class ValidationConfig {
 
     public static final int LENGTH_PROGRAM_NAME_MIN = 5;
     public static final int LENGTH_PROGRAM_NAME_MAX = 90;
@@ -11,4 +11,6 @@ public class ValidationConfig {
 
     public static final String REGEXP_ALPHANUMERIC = "^[A-Za-z0-9\\s]+$";
 
+    private ValidationConfig() {
+    }
 }

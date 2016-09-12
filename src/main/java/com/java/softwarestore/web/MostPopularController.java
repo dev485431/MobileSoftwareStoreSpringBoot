@@ -1,7 +1,7 @@
 package com.java.softwarestore.web;
 
 import com.java.softwarestore.model.dto.ProgramDetailsDto;
-import com.java.softwarestore.service.MostPopularManager;
+import com.java.softwarestore.service.HibernateMostPopularManager;
 import com.java.softwarestore.service.QueryResultsOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,11 +15,10 @@ import java.util.List;
 @RequestMapping(value = "/rest/top")
 public class MostPopularController {
 
-
     @Value("${top.programs.limit.to.query}")
     private int topProgramsLimitToQuery;
     @Autowired
-    private MostPopularManager mostPopularManager;
+    private HibernateMostPopularManager mostPopularManager;
 
     @RequestMapping(value = "get", method = RequestMethod.GET)
     private List<ProgramDetailsDto> getTopPrograms() {

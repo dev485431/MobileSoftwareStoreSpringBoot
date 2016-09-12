@@ -2,14 +2,14 @@ package com.java.softwarestore.model.dto;
 
 import java.util.Optional;
 
-public class ProgramTextDetails {
+public class ProgramTextFileDetails {
 
     private Optional<String> programName;
     private Optional<String> packageName;
     private Optional<String> picName128;
     private Optional<String> picName512;
 
-    public ProgramTextDetails(Optional<String> programName, Optional<String> packageName, Optional<String> picName128, Optional<String> picName512) {
+    public ProgramTextFileDetails(Optional<String> programName, Optional<String> packageName, Optional<String> picName128, Optional<String> picName512) {
         this.programName = programName;
         this.packageName = packageName;
         this.picName128 = picName128;

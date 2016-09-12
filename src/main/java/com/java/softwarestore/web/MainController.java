@@ -1,7 +1,7 @@
 package com.java.softwarestore.web;
 
-import com.java.softwarestore.service.CategoryManager;
-import com.java.softwarestore.service.PaginationManager;
+import com.java.softwarestore.service.HibernateCategoryManager;
+import com.java.softwarestore.service.HibernatePaginationManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +29,15 @@ public class MainController {
     Integer defaultCategoryId;
     @Value("${pagination.default.items.per.page}")
     Integer defaultItemsPerPage;
-    private CategoryManager categoryManager;
-    private PaginationManager paginationManager;
+    private HibernateCategoryManager categoryManager;
+    private HibernatePaginationManager paginationManager;
     @Value("${pagination.items.per.page.options}")
     private int[] itemsPerPageOptions;
     @Value("${program.default.img128}")
     private String defaultImg128;
 
     @Autowired
-    public MainController(CategoryManager categoryManager, PaginationManager paginationManager) {
+    public MainController(HibernateCategoryManager categoryManager, HibernatePaginationManager paginationManager) {
         this.categoryManager = categoryManager;
         this.paginationManager = paginationManager;
     }

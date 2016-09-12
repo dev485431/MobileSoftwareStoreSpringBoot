@@ -24,7 +24,7 @@ public class BeforeUploadFileValidator {
 
     public boolean containsExpectedFiles(MultipartFile file) {
         List<String> filenames = getFilenames(file);
-        return containsExpectedNumberOfFiles(filenames) ? (containsExpectedFiles(filenames) ? true : false) : false;
+        return containsExpectedNumberOfFiles(filenames) && (containsExpectedFiles(filenames));
     }
 
     private List<String> getFilenames(MultipartFile file) {

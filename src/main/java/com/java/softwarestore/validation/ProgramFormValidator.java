@@ -1,7 +1,7 @@
 package com.java.softwarestore.validation;
 
 import com.java.softwarestore.model.dto.ProgramForm;
-import com.java.softwarestore.service.ProgramManager;
+import com.java.softwarestore.service.HibernateProgramManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +11,14 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
 
+import static com.java.softwarestore.validation.ValidationConfig.ZERO;
+
 @Component
 public class ProgramFormValidator implements Validator {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProgramFormValidator.class);
     @Autowired
-    private ProgramManager programManager;
+    private HibernateProgramManager programManager;
     @Autowired
     private BeforeUploadFileValidator beforeUploadFileValidator;
     @Value("${uploaded.file.extension}")
@@ -35,7 +37,7 @@ public class ProgramFormValidator implements Validator {
             ProgramForm programForm = (ProgramForm) target;
             MultipartFile programFile = ((ProgramForm) target).getFile();
 
-            if (programFile.getSize() == ValidationConfig.ZERO) {
+            if (programFile.getSize() == ZERO) {
                 LOG.debug("The file is empty");
                 errors.rejectValue("file", "error.empty.file");
             }

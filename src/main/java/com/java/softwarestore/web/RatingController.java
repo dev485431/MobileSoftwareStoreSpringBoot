@@ -1,7 +1,7 @@
 package com.java.softwarestore.web;
 
 import com.java.softwarestore.model.domain.Rating;
-import com.java.softwarestore.service.RatingManager;
+import com.java.softwarestore.service.HibernateRatingManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class RatingController {
 
     private static final Logger LOG = LoggerFactory.getLogger(RatingController.class);
     @Autowired
-    private RatingManager ratingManager;
+    private HibernateRatingManager ratingManager;
 
     @RequestMapping(value = "/rating/add", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)

@@ -30,7 +30,7 @@ public class UrlsHandler {
     @Value("${program.default.img512}")
     private String defaultImg512;
 
-    public URL getImageUrl(Program program, ImageUrlType imageUrlType) {
+    public URL getURI(Program program, ImageUrlType imageUrlType) {
         URI uri;
         URL url = null;
         String imagePath;
@@ -39,29 +39,17 @@ public class UrlsHandler {
                 case IMAGE_128:
                     imagePath = program.getImg128().isPresent() ? programsMainUrlPath + program.getName() + BACKSLASH
                             + program.getImg128().get() : programsDefaultImagesPath + defaultImg128;
-                    uri = new URI(
-                            PROTOCOL,
-                            programsMainUrlDomain,
-                            imagePath,
-                            null);
+                    uri = getURI(imagePath);
                     break;
 
                 case IMAGE_512:
                     imagePath = program.getImg512().isPresent() ? programsMainUrlPath + program.getName() + BACKSLASH
                             + program.getImg512().get() : programsDefaultImagesPath + defaultImg512;
-                    uri = new URI(
-                            PROTOCOL,
-                            programsMainUrlDomain,
-                            imagePath,
-                            null);
+                    uri = getURI(imagePath);
                     break;
 
                 default:
-                    uri = new URI(
-                            PROTOCOL,
-                            programsMainUrlDomain,
-                            programsDefaultImagesPath + defaultImg512,
-                            null);
+                    uri = getURI(programsDefaultImagesPath + defaultImg512);
                     break;
             }
             url = uri.toURL();
@@ -75,17 +63,20 @@ public class UrlsHandler {
     public URL getProgramDownloadUrl(Program program) {
         URL url = null;
         try {
-            URI uri = new URI(
-                    "http",
-                    programsMainUrlDomain,
-                    programsMainUrlPath + program.getName() + BACKSLASH + zipInnerAppFile,
-                    null);
-            url = uri.toURL();
+            url = getURI(programsMainUrlPath + program.getName() + BACKSLASH + zipInnerAppFile).toURL();
             LOG.debug("Prepared program download url: " + url);
         } catch (URISyntaxException | MalformedURLException e) {
             LOG.error("Failed to prepare download url: " + e.getMessage());
         }
         return url;
+    }
+
+    private URI getURI(String path) throws URISyntaxException {
+        return new URI(
+                PROTOCOL,
+                programsMainUrlDomain,
+                path,
+                null);
     }
 
 }

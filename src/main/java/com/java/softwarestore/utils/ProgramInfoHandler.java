@@ -1,6 +1,6 @@
 package com.java.softwarestore.utils;
 
-import com.java.softwarestore.model.dto.ProgramTextDetails;
+import com.java.softwarestore.model.dto.ProgramTextFileDetails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -24,9 +24,9 @@ public class ProgramInfoHandler {
     private String txtPicture512Key;
 
 
-    public ProgramTextDetails getProgramTextDetails(File programTextFile) throws IOException {
+    public ProgramTextFileDetails getProgramTextDetails(File programTextFile) throws IOException {
         Properties prop = loadProgramProperties(programTextFile);
-        return new ProgramTextDetails(Optional.ofNullable(prop.getProperty(txtNameKey)), Optional.ofNullable(prop.getProperty(txtPackageKey)),
+        return new ProgramTextFileDetails(Optional.ofNullable(prop.getProperty(txtNameKey)), Optional.ofNullable(prop.getProperty(txtPackageKey)),
                 Optional.ofNullable(prop.getProperty(txtPicture128Key)), Optional.ofNullable(prop.getProperty(txtPicture512Key)));
     }
 

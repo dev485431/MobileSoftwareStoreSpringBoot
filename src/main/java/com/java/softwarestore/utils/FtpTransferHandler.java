@@ -2,8 +2,8 @@ package com.java.softwarestore.utils;
 
 import com.java.softwarestore.exceptions.FtpException;
 import org.apache.commons.net.ftp.FTPClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -16,9 +16,11 @@ import java.util.Map;
 @Component
 public class FtpTransferHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FtpTransferHandler.class);
+    private static final Logger LOG = Logger.getLogger(FtpTransferHandler.class);
     private static final int FTP_CODE_FILE_UNAVAILABLE = 550;
     private static final String BACKSLASH = "/";
+    @Autowired
+    private ProgramFileUtils programFileUtils;
     @Value("${ftp.host}")
     private String ftpHost;
     @Value("${ftp.user}")
@@ -31,36 +33,41 @@ public class FtpTransferHandler {
     public void uploadFiles(Map<String, File> files, String targetUploadDir) throws IOException, FtpException {
         FTPClient ftp = new FTPClient();
         ftp.connect(ftpHost);
-        ftp.enterLocalPassiveMode();
 
-        if (!ftp.login(ftpUser, ftpPass)) {
-            throw new FtpException("Failed to log in: " + ftp.getReplyString());
-        }
-
-        ftp.setFileType(FTPClient.BINARY_FILE_TYPE);
-        String targetUploadPath = mainUploadDirPath + targetUploadDir;
-
-        if (!checkDirectoryExists(ftp, targetUploadPath)) {
-            if (!ftp.makeDirectory(targetUploadPath)) {
-                throw new FtpException("Failed to create directory: " + targetUploadPath + ", error: " + ftp
-                        .getReplyString());
+        try {
+            ftp.enterLocalPassiveMode();
+            if (!ftp.login(ftpUser, ftpPass)) {
+                throw new FtpException("Failed to log in: " + ftp.getReplyString());
             }
-            LOG.debug("Directory created: " + targetUploadPath);
-        }
 
-        for (Map.Entry<String, File> file : files.entrySet()) {
-            LOG.debug("Transferring file by ftp: " + file);
-            try (InputStream in = new FileInputStream(file.getValue())) {
-                if (!ftp.storeFile(targetUploadPath + BACKSLASH + file.getValue().getName(), in)) {
-                    throw new FtpException("Ftp file transfer failed: " + ftp.getReplyString());
+            ftp.setFileType(FTPClient.BINARY_FILE_TYPE);
+            String targetUploadPath = mainUploadDirPath + targetUploadDir;
+
+            if (!directoryExists(ftp, targetUploadPath)) {
+                if (!ftp.makeDirectory(targetUploadPath)) {
+                    throw new FtpException("Failed to create directory: " + targetUploadPath + ", error: " + ftp
+                            .getReplyString());
+                }
+                LOG.debug("Directory created: " + targetUploadPath);
+            }
+
+            for (Map.Entry<String, File> file : files.entrySet()) {
+                LOG.debug("Transferring file by ftp: " + file);
+                try (InputStream in = new FileInputStream(file.getValue())) {
+                    if (!ftp.storeFile(targetUploadPath + BACKSLASH + file.getValue().getName(), in)) {
+                        throw new FtpException("Ftp file transfer failed: " + ftp.getReplyString());
+                    }
                 }
             }
+        } finally {
+            LOG.debug("Attempting to remove extracted files' parent directory");
+            programFileUtils.removeFileOrDir(files.values().iterator().next().getAbsoluteFile().getParentFile());
+            ftp.disconnect();
         }
-        ftp.disconnect();
     }
 
-    boolean checkDirectoryExists(FTPClient ftp, String dirPath) throws IOException {
+    private boolean directoryExists(FTPClient ftp, String dirPath) throws IOException {
         ftp.changeWorkingDirectory(dirPath);
-        return ftp.getReplyCode() == FTP_CODE_FILE_UNAVAILABLE ? false : true;
+        return ftp.getReplyCode() != FTP_CODE_FILE_UNAVAILABLE;
     }
 }

@@ -1,11 +1,8 @@
-package com.java.softwarestore.service.hibernate;
+package com.java.softwarestore.service;
 
 import com.java.softwarestore.model.domain.Program;
 import com.java.softwarestore.model.dto.ProgramDetailsDto;
-import com.java.softwarestore.service.ProgramManager;
-import com.java.softwarestore.utils.ImageUrlType;
-import com.java.softwarestore.utils.RatingsHandler;
-import com.java.softwarestore.utils.UrlsHandler;
+import com.java.softwarestore.model.dto.ProgramDetailsDtoFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +10,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.format.DateTimeFormatter;
-
 @Service
-public class HibernateProgramManager implements ProgramManager {
+public class HibernateProgramManager {
 
     private static final int DOWNLOADS_INCREMENT = 1;
+    private static final int ONE = 1;
     @Autowired
     private SessionFactory sessionFactory;
     @Autowired
-    private UrlsHandler urlsHandler;
-    @Autowired
-    private RatingsHandler ratingsHandler;
+    private ProgramDetailsDtoFactory programDetailsDtoFactory;
     @Value("${program.details.date.format}")
     private String programDetailsDateFormat;
 
@@ -32,43 +26,30 @@ public class HibernateProgramManager implements ProgramManager {
         return sessionFactory.getCurrentSession();
     }
 
-    @Override
     @Transactional
     public void addProgram(Program program) {
         session().save(program);
     }
 
-    @Override
     @Transactional(readOnly = true)
     public boolean programNameExists(String name) {
         Long count = (Long) session().createQuery("select count(*) from Program where name=:name").setParameter
                 ("name", name).uniqueResult();
-        return count == 1;
+        return count == ONE;
     }
 
-    @Override
     @Transactional(readOnly = true)
     public Program getProgramById(Integer id) {
         return (Program) session().createQuery("from Program where id=:id").setParameter("id", id).uniqueResult();
     }
 
-    @Override
     @Transactional(readOnly = true)
     public ProgramDetailsDto getProgramDetailsById(Integer id) {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(programDetailsDateFormat);
         Program program = (Program) session().createQuery("from Program where id=:id").setParameter("id", id)
                 .uniqueResult();
-        return new ProgramDetailsDto(program.getId(), program.getName(),
-                program.getDescription(),
-                urlsHandler.getImageUrl(program, ImageUrlType.IMAGE_128),
-                urlsHandler.getImageUrl(program, ImageUrlType.IMAGE_512),
-                program.getCategory().getName(),
-                program.getStatistics().getTimeUploaded().format(dateFormat),
-                program.getStatistics().getDownloads(),
-                ratingsHandler.getAverageRating(program.getStatistics().getRatings()));
+        return programDetailsDtoFactory.getDetailsDto(program, programDetailsDateFormat);
     }
 
-    @Override
     @Transactional
     public void incrementDownloads(Integer programId) {
         Program program = getProgramById(programId);
@@ -76,7 +57,6 @@ public class HibernateProgramManager implements ProgramManager {
         session().update(program);
     }
 
-    @Override
     @Transactional
     public void removeProgram(Integer id) {
         Program program = getProgramById(id);

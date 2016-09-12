@@ -1,7 +1,7 @@
 package com.java.softwarestore.web;
 
 import com.java.softwarestore.model.domain.Category;
-import com.java.softwarestore.service.CategoryManager;
+import com.java.softwarestore.service.HibernateCategoryManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +14,7 @@ import java.util.List;
 public class CategoryController {
 
     @Autowired
-    private CategoryManager categoryManager;
+    private HibernateCategoryManager categoryManager;
 
     @RequestMapping(value = "get", method = RequestMethod.GET)
     private List<Category> getAllCategories() {

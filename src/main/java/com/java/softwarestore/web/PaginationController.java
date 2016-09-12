@@ -1,7 +1,7 @@
 package com.java.softwarestore.web;
 
 import com.java.softwarestore.model.dto.ProgramDetailsDto;
-import com.java.softwarestore.service.PaginationManager;
+import com.java.softwarestore.service.HibernatePaginationManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class PaginationController {
 
     @Autowired
-    private PaginationManager paginationManager;
+    private HibernatePaginationManager paginationManager;
 
     @RequestMapping(value = "page/{pageNum:[\\d]+}", method = RequestMethod.GET)
     private List<ProgramDetailsDto> getPage(@PathVariable("pageNum") Integer pageNum, @RequestParam(value =
@@ -28,3 +28,4 @@ public class PaginationController {
     }
 
 }
+
