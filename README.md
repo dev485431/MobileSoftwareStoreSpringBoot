@@ -16,13 +16,13 @@ user: user / user
 2a. run embedded container / embedded db profile:
 
 * java -jar MobileSoftwareStoreSpringBoot-1.0-SNAPSHOT.war,
-* open http://localhost:8000/
+* open http://localhost:8000/MobileSoftwareStore/
 
 2b. run embedded container / external mysql db profile:
 
 * MYSQL: CREATE DATABASE software_store (user: root, empty password)
 * java -jar MobileSoftwareStoreSpringBoot-1.0-SNAPSHOT.war --spring.profiles.active=prod
-* open http://localhost:8000/
+* open http://localhost:8000/MobileSoftwareStore/
 ** you may need to adjust DB configuration in 'resources/application-prod.properties'
 
 2c. run external container / external mysql db profile with JNDI support:
