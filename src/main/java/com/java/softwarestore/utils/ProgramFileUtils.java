@@ -6,12 +6,10 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -23,9 +21,7 @@ import java.util.zip.ZipFile;
 public class ProgramFileUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProgramFileUtils.class);
-    @Autowired
-    private HttpServletRequest servletRequest;
-    @Value("${temp.upload.dir}")
+    @Value("${spring.http.multipart.location}")
     private String tempUploadDir;
 
     public Map<String, File> processZipFile(MultipartFile zipFile) throws IOException,
@@ -34,8 +30,7 @@ public class ProgramFileUtils {
         File extractPath;
         Map<String, File> extractedFiles;
         try {
-            uploadedZipFile = transferFileToDir(zipFile, new File(servletRequest.getSession()
-                    .getServletContext().getRealPath(tempUploadDir)));
+            uploadedZipFile = transferFileToDir(zipFile, new File(tempUploadDir));
             extractPath = new File(FilenameUtils.removeExtension(uploadedZipFile.getAbsolutePath()));
             extractedFiles = extractZipFile(uploadedZipFile, extractPath);
         } finally {

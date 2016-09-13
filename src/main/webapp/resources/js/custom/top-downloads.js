@@ -1,6 +1,7 @@
 'use strict';
 
-var TopDownloads = function () {
+var TopDownloads = function (appPath) {
+    this.appPath = appPath;
 };
 
 TopDownloads.prototype = function () {
@@ -14,7 +15,10 @@ TopDownloads.prototype = function () {
         timeout = 10000,
 
         init = function () {
-            topDownloadsLoader.show();
+            programDetailsUrl = this.appPath + programDetailsUrl,
+                restApiUrl = this.appPath + restApiUrl,
+
+                topDownloadsLoader.show();
             getJson()
                 .done(function (data) {
                     topDownloadsDiv.html(generateHtml(data));

@@ -1,6 +1,7 @@
 'use strict';
 
-var Rating = function () {
+var Rating = function (appPath) {
+    this.appPath = appPath;
 };
 
 Rating.prototype = function () {
@@ -15,6 +16,8 @@ Rating.prototype = function () {
         timeout = 10000,
 
         init = function () {
+            submitRatingUrl = this.appPath + submitRatingUrl;
+
             ratingDiv.rateYo({
                 halfStar: true,
                 onSet: function (rating, rateYoInstance) {

@@ -4,15 +4,14 @@
 <div class="container" align="center">
     <h1>Our application encountered an error</h1><br/>
     Please contact the administrator<br/><br/>
-    <a href="/">Go back to the main page</a>
+    <a href="${applicationPath}/">Go back to the main page</a>
 
 </div>
 
 <!--
 Information for technical support:
 Failed URL: ${url}
-Exception: ${exception}
-Exception message: ${exception.message}
+Exception: ${exception.message}
 Cause: ${exception.cause}
 
 Stack trace:

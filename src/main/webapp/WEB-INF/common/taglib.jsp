@@ -3,4 +3,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<c:set var="serviceServerPath" value="${pageContext.request.contextPath}" scope="application"/>
+<c:set var="applicationPath" value="${pageContext.request.contextPath}" scope="application"/>
+<script>var applicationPath = "${pageContext.request.contextPath}";</script>

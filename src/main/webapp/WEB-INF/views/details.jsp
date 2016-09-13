@@ -51,27 +51,27 @@
 
         <div class="row text-align-center">
             <p></p>
-            <img src="${serviceServerPath}/resources/images/download.gif"
+            <img src="${applicationPath}/resources/images/download.gif"
                  alt=""/> Downloads: ${programDetails.downloads}
             </span>
             <span>
-                    <img src="${serviceServerPath}/resources/images/category.gif"
+                    <img src="${applicationPath}/resources/images/category.gif"
                          alt=""/> Category: ${programDetails.categoryName}
                 </span>
             <span>
-                    <img src="${serviceServerPath}/resources/images/category.gif"
+                    <img src="${applicationPath}/resources/images/category.gif"
                          alt=""/> Time uploaded: ${programDetails.timeUploaded}
                 </span>
             </p>
         </div>
 
         <div class="row text-align-center">
-            <h3><a href="/download/${programDetails.id}">Download</a></h3>
+            <h3><a href="${applicationPath}/download/${programDetails.id}">Download</a></h3>
         </div>
         <br/>
 
         <div class="row text-align-center">
-            <a href="/">Back to main page</a>
+            <a href="${applicationPath}/">Back to main page</a>
         </div>
         <br/>
 
