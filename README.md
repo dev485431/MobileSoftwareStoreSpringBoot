@@ -23,12 +23,14 @@ user: user / user
 * MYSQL: CREATE DATABASE software_store (user: root, empty password)
 * java -jar MobileSoftwareStoreSpringBoot-1.0-SNAPSHOT.war --spring.profiles.active=prod
 * open http://localhost:8000/
+** you may need to adjust DB configuration in 'resources/application-prod.properties'
 
 2c. run external container / external mysql db profile with JNDI support:
-* deploy to external container
-* add argument into VM options: -Dspring.profiles.active=prod-jndi
-** JNDI configuration is stored in: META-INF/context.xml
+* add argument into VM options of the container: -Dspring.profiles.active=prod-jndi
+* deploy to the container and run the container,
+** you may need to adjust JNDI configuration in 'META-INF/context.xml'
 
 
 *** Note: this application can be also deployed to external container
 with embedded db main profile or external jdbc mysql profile ('prod')
+(you just need to use the run arguments specified above before deploying to a container)
