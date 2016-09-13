@@ -30,7 +30,6 @@ user: user / user
 * deploy to the container and run the container,
 ** you may need to adjust JNDI configuration in 'META-INF/context.xml'
 
-
 *** Note: this application can be also deployed to external container
 with embedded db main profile or external jdbc mysql profile ('prod')
 (you just need to use the run arguments specified above before deploying to a container)
