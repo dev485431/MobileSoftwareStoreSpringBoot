@@ -15,6 +15,7 @@ The point of this application was to use as little configuration as possible and
 1. Adding and uploading new programs
 
 <h2>Other features</h2>
+
 1. Uploading files to FTP
 2. Pre and post upload file validation
 
