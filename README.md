@@ -38,9 +38,9 @@ The point of this application was to use as little configuration as possible and
 
 <h3>Login information:</h3>
 
-administrator: admin / admin
-developer: dev / dev
-user: user / user
+- administrator: admin / admin
+- developer: dev / dev
+- user: user / user
 
 <h3>Sample application file:</h3>
 /sample/sample.zip
