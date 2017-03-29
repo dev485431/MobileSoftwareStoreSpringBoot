@@ -19,6 +19,7 @@ The point of this application was to use as little configuration as possible and
 2. Pre and post upload file validation
 
 <h2>Technology stack</h2>
+
 - Java 8
 - Spring Boot 1.4
 - Spring Security 4.x
