@@ -4,6 +4,17 @@ This application is a software shop with mobile application files available for 
 
 The point of this application was to use as little configuration as possible and let Spring Boot take care of all things related to configuration.
 
+<h2>Features</h2>
+
+- division of programs by categories,
+- most popular programs slideshow (jQuery; Hibernate chaching),
+- pagination,
+- program download statistics,
+
+- download available programs,
+- submit new programs (for dev/admin roles after login),
+- rate program using star rating system (jQuery),
+
 <h2>Features for user</h2>
 
 1. Browsing categories
@@ -71,3 +82,5 @@ The point of this application was to use as little configuration as possible and
 *** <b>Note:</b> this application can be also deployed to external container
 with embedded db main profile or external jdbc mysql profile ('prod')
 (you just need to use the run arguments specified above before deploying to a container)
+
+** <b>Note:</b> The core Spring MVC version of the same application is available at: https://github.com/skullscorp/MobileSoftwareStore
